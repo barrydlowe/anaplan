@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+#! /usr/bin/python3
+
 import unittest
 
 from gilded_rose import Item, GildedRose
@@ -34,11 +35,17 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.update_quality()
         self.assertEqual(50, item[0].quality)
 
-    def test_sulfuras_never_changing(self):
+    def test_sulfuras_never_changing_quality(self):
         item = [Item(name="Sulfuras, Hand of Ragnaros", sell_in=5, quality=80)]
         gilded_rose = GildedRose(item)
         gilded_rose.update_quality()
         self.assertEqual(80, item[0].quality)
+
+    def test_sulfuras_sell_in_is_zero(self):
+        item = [Item(name="Sulfuras, Hand of Ragnaros", sell_in=5, quality=80)]
+        gilded_rose = GildedRose(item)
+        gilded_rose.update_quality()
+        self.assertEqual(0, item[0].sell_in)
 
     def test_backstage_pass_quality_when_sellin_above_ten(self):
         item = [Item(name="Backstage passes to a TAFKAL80ETC concert", sell_in=11, quality=10)]
